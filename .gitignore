@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated outputs (re-created on demand)
+results/
+*.log
+
+# Sample dataset — fetched by scripts/download_sipi.py, not source code
+data/*.tiff
+data/*.png
+data/*.tif
+!data/.gitkeep
+
+# Local secrets / env files
+.env
+.env.local

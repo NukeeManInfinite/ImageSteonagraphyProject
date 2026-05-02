@@ -8,7 +8,7 @@
   // On localhost (Flask serving both halves) we use same-origin paths.
   // In production (Vercel + Render) we hit the Render backend directly.
   // EDIT the production URL after deploying the backend to Render:
-  const PROD_BACKEND = "https://YOUR-BACKEND.onrender.com";
+  const PROD_BACKEND = "https://imagesteonagraphyproject.onrender.com";
 
   const API_BASE_URL =
     location.hostname === "localhost" || location.hostname === "127.0.0.1"
