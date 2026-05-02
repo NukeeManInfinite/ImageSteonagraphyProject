@@ -1,0 +1,19 @@
+# Render Blueprint — defines a single Python web service for the Flask backend.
+# Connect the GitHub repo to Render and choose "Blueprint" to apply this file.
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: image-steganography-api
+    runtime: python
+    plan: free
+    autoDeploy: true
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 60 "app:create_app()"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      # Comma-separated list of allowed CORS origins.
+      # After your Vercel deploy, edit this to your real frontend URL.
+      - key: ALLOWED_ORIGINS
+        value: "https://YOUR-FRONTEND.vercel.app,http://localhost:5000"

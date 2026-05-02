@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Steganography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </div>
+
+  <header class="page-header">
+    <span class="badge">LSB · Fernet AES</span>
+    <h1>Image Steganography</h1>
+    <p class="tagline">Encrypt a message and hide it inside an image — or pull it back out.</p>
+  </header>
+
+  <main class="grid">
+    <!-- Section 1: Encrypt & Hide -->
+    <section class="card">
+      <div class="card-head">
+        <span class="step">01</span>
+        <div>
+          <h2>Encrypt &amp; Hide</h2>
+          <p>Embed an encrypted secret into your image.</p>
+        </div>
+      </div>
+
+      <form id="encode-form" autocomplete="off">
+        <label class="field">
+          <span class="field-label">Cover image</span>
+          <span class="filebox" data-filebox>
+            <input type="file" name="image" accept="image/png,image/bmp,image/x-bmp,image/tiff" required />
+            <span class="filebox-text"><strong>Click to upload</strong> or drag &amp; drop<br /><small>PNG · BMP · TIFF</small></span>
+          </span>
+          <img class="preview" alt="" hidden />
+        </label>
+
+        <label class="field">
+          <span class="field-label">Secret message</span>
+          <textarea name="message" rows="4" placeholder="Type the secret you want to hide..." required></textarea>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Password</span>
+          <input type="password" name="password" placeholder="Used to encrypt the message" required />
+        </label>
+
+        <button type="submit" class="primary">
+          <span>Encrypt &amp; Hide</span>
+        </button>
+        <div class="status" id="encode-status" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <!-- Section 2: Extract & Decrypt -->
+    <section class="card">
+      <div class="card-head">
+        <span class="step">02</span>
+        <div>
+          <h2>Extract &amp; Decrypt</h2>
+          <p>Recover the hidden message from a stego image.</p>
+        </div>
+      </div>
+
+      <form id="decode-form" autocomplete="off">
+        <label class="field">
+          <span class="field-label">Stego image</span>
+          <span class="filebox" data-filebox>
+            <input type="file" name="image" accept="image/png,image/bmp,image/x-bmp" required />
+            <span class="filebox-text"><strong>Click to upload</strong> or drag &amp; drop<br /><small>PNG · BMP</small></span>
+          </span>
+          <img class="preview" alt="" hidden />
+        </label>
+
+        <label class="field">
+          <span class="field-label">Password</span>
+          <input type="password" name="password" placeholder="The password used at encode time" required />
+        </label>
+
+        <button type="submit" class="primary">
+          <span>Extract &amp; Decrypt</span>
+        </button>
+        <div class="status" id="decode-status" role="status" aria-live="polite"></div>
+
+        <div class="field">
+          <span class="field-label">Recovered message</span>
+          <pre id="decode-output" class="output" aria-live="polite"></pre>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <small>LSB steganography + Fernet (AES-128 + HMAC). PNG only — JPEG would destroy the hidden bits.</small>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
